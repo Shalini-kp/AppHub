@@ -1,0 +1,6 @@
+framework module Pods_AppHub {
+  umbrella header "Pods-AppHub-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:/Users/shalinikp/Desktop/AppHub/Podfile"
+      assignedFileDataType = "public.plain-text">
+   </FileRef>
+   <FileRef
+      location = "group:Login/Login.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AppHub/AppHub.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
