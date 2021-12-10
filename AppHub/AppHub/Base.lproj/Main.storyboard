@@ -18,11 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5e-pK-1VJ">
-                                <rect key="frame" x="166" y="432.5" width="82" height="31"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="  Shalini  "/>
+                                <buttonConfiguration key="configuration" style="gray" title="  Tap me  ">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bxJ-Tw-mhH"/>
                                 </connections>
@@ -31,8 +33,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p5e-pK-1VJ" secondAttribute="trailing" id="C2A-mD-fwq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="p5e-pK-1VJ" secondAttribute="bottom" id="aB6-xm-SMT"/>
                             <constraint firstItem="p5e-pK-1VJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aKj-00-cz5"/>
-                            <constraint firstItem="p5e-pK-1VJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="iqJ-gn-BYA"/>
+                            <constraint firstItem="p5e-pK-1VJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gNK-kR-rMk"/>
                         </constraints>
                     </view>
                 </viewController>

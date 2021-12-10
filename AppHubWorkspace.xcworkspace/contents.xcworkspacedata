@@ -2,8 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/shalinikp/Desktop/AppHub/Podfile"
-      assignedFileDataType = "public.plain-text">
+      location = "group:/Users/shalinikp/Desktop/AppHub/Podfile">
+   </FileRef>
+   <FileRef
+      location = "group:Core/Core.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Login/Login.xcodeproj">

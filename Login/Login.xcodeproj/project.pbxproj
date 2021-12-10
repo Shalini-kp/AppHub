@@ -12,7 +12,22 @@
 		B09AEA4E2761321C00E69310 /* Login.h in Headers */ = {isa = PBXBuildFile; fileRef = B09AEA4B2761321C00E69310 /* Login.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B09AEA552761322900E69310 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B09AEA542761322900E69310 /* Login.storyboard */; };
 		B09AEA5B276132A200E69310 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AEA5A276132A200E69310 /* LoginViewController.swift */; };
+		B0B82A122763806F00B8C610 /* Core.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = B0B82A112763806400B8C610 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0B82A0327637F5D00B8C610 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B0B82A122763806F00B8C610 /* Core.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1037BD5EB6A0F30A1845BF83 /* Pods-Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Login.release.xcconfig"; path = "Target Support Files/Pods-Login/Pods-Login.release.xcconfig"; sourceTree = "<group>"; };
@@ -22,6 +37,7 @@
 		B09AEA4C2761321C00E69310 /* Login.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Login.docc; sourceTree = "<group>"; };
 		B09AEA542761322900E69310 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		B09AEA5A276132A200E69310 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B0B82A112763806400B8C610 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Core.framework; sourceTree = "<group>"; };
 		F5A1A9FB6CB55BE2FDE9338E /* Pods-Login.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Login.debug.xcconfig"; path = "Target Support Files/Pods-Login/Pods-Login.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				B09AEA4A2761321C00E69310 /* Login */,
+				B0B82A102763805500B8C610 /* Dependencies */,
 				B09AEA492761321C00E69310 /* Products */,
 				71C51683609C467B10B4F88A /* Pods */,
 				69DAF0A95307B0A9528B11DD /* Frameworks */,
@@ -84,6 +101,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		B0B82A102763805500B8C610 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				B0B82A112763806400B8C610 /* Core.framework */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -107,6 +132,7 @@
 				B09AEA442761321C00E69310 /* Sources */,
 				B09AEA452761321C00E69310 /* Frameworks */,
 				B09AEA462761321C00E69310 /* Resources */,
+				B0B82A0327637F5D00B8C610 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -343,6 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.multiple.app.Login;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -372,6 +399,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.multiple.app.Login;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

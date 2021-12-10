@@ -17,6 +17,7 @@ end
 #feature module
 def login_pods
     pod 'Auth0'
+    core_pods
 end
 
 target 'Login' do
@@ -27,6 +28,7 @@ end
 #application
 def apphub_pods
     login_pods
+    core_pods
 end
 
 target 'AppHub' do
