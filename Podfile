@@ -5,8 +5,18 @@ use_frameworks!
 workspace 'AppHubWorkspace'
 
 #core module
-def login_pods
+def core_pods
     pod 'Moya'
+end
+
+target 'Core' do
+    project 'Core/Core.project'
+    core_pods
+end
+
+#feature module
+def login_pods
+    pod 'Auth0'
 end
 
 target 'Login' do
