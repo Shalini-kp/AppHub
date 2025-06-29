@@ -1,263 +1,176 @@
 # AppHub - Modular App Architecture
-Breaking Monolith into feature modules to acheive a robust application which allows to plugin-out apps/features efficiently.
 
-Prerequisites:
+A guide to breaking the monolith into feature modules to achieve a robust, scalable application. This architecture allows apps/features to be easily plugged in or removed as needed.
 
-Framework Type - Dynamic framework
-Internal Design Pattern - MVC
-Package Manager - cocoa pods
-Dependency Management - flat dependency
-Monorepo approach
-Dependency Injection
-(Set standards).
+---
 
-Set up MAA: 
-Setting up the workspace and Creating a module
+## 🔧 Prerequisites
 
-Create and set up a general workspace for all apps to integrate.
+- **Framework Type:** Dynamic Framework
+- **Design Pattern:** MVC
+- **Package Manager:** CocoaPods
+- **Dependency Management:** Flat Dependency Structure
+- **Approach:** Monorepo
+- **Dependency Injection:** (Set standards as needed)
 
-Create a project for the main app and choose the Workspace.
+---
 
-Initialize Cocoapods and place the Podfile at the Root level of the workspace, where the workspace file is located.
+## 🚀 Setting Up MAA (Modular App Architecture)
 
-Add the module’s dependencies to the Podfile and mention the workspace.
+### 🧱 Create and Set Up Workspace
 
-Run pod install and compile the module to make sure it can use the external dependencies.
+1. Create a general workspace to host all apps/modules.
+2. Create the main app project inside this workspace.
+3. Initialize CocoaPods and place the `Podfile` at the **root level** of the workspace.
+4. Add required dependencies to the `Podfile` and set the workspace reference.
+5. Run:
 
-Creating a framework and Adding them as a dependency of the App.
+   ```bash
+   pod install
+Compile the project to ensure all dependencies are integrated properly.
 
-Create a project as a framework and choose the Workspace.
+🧩 Creating a Framework Module
+Create a new framework project within the workspace.
 
-Create a group without a folder and name it “Dependencies” or whatever you like.
+Create a new group (without folder) named Dependencies (or as preferred).
 
-Drag the project you want to depend upon into the group created in the previous step.
+Drag any project you want to depend on into this group.
 
-(Only the first time) Create a Copy Files Build Phase to Frameworks.
+For first-time setup:
 
-Add the framework product to the copy frameworks build phase.
+Add a Copy Files Build Phase to "Frameworks".
 
-In this case, whatever changes in the framework ll reflect on the main app
+Add the framework product to the Copy Frameworks build phase.
 
-Adding inter-module dependencies.
+Changes in the framework will reflect in the main app.
 
-Do this when a module depends on another internal module. For example, Login depends on Core.
+🔗 Adding Inter-Module Dependencies
+Example: Login module depends on Core.
 
-In the target module (Log in), create a group without a folder and name it “Dependencies” and add the dependent framework.
+In the dependent module (Login):
 
-Add the framework product to the copy frameworks build phase.
+Create a group Dependencies and add the internal framework.
 
-Add the dependencies module in the Podfile and pod install.
+Add it to Copy Frameworks Build Phase.
 
-Distribution (creating binary framework - XCFramework)
+Add the module to the Podfile and run:
 
-Create XCFramework and add them to copy frameworks.
+bash
+Copy
+Edit
+pod install
+📦 Binary Distribution using XCFrameworks
+Enable the following in build settings:
 
-Enable Build Libraries for Distribution. Enable Validate workspace for target integrity.
+Build Libraries for Distribution
+
+Validate Workspace
 
 Create Identifier Certificates for each framework.
 
-Run scripts to achieve (simulator + phone) each framework and create the bundle.
+Use the following scripts to generate XCFrameworks:
 
-Add it to the frameworks to import into the project.
-
-In this case, whatever is changed in the framework ll not be reflected in the main app.
-
-Publishing (creating it as third party library/framework or SDK)
-
-Install Cocoapods
-
-Retrieve an Xcode project containing a framework target
-
-Create a local git repository to host our framework project
-
-Create a local specification repository
-
-Publish our framework specification to our specification repository
-
-Install our framework into an app
-
-Scripts to achieve and Create XCFramework
-
+bash
+Copy
+Edit
+# Archive for iOS Device
 xcodebuild archive \
-
 -scheme Registration \
-
 -configuration Release \
-
 -destination 'generic/platform=iOS' \
-
 -archivePath './build/Registration.framework-iphoneos.xcarchive' \
-
 SKIP_INSTALL=NO \
-
 BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
 
-
-
+# Archive for iOS Simulator
 xcodebuild archive \
-
 -scheme Registration \
-
 -configuration Release \
-
 -destination 'generic/platform=iOS Simulator' \
-
 -archivePath './build/Registration.framework-iphonesimulator.xcarchive' \
-
 SKIP_INSTALL=NO \
-
 BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
 
-
-
+# Create XCFramework
 xcodebuild -create-xcframework \
-
 -framework './build/Registration.framework-iphonesimulator.xcarchive/Products/Library/Frameworks/Registration.framework' \
-
 -framework './build/Registration.framework-iphoneos.xcarchive/Products/Library/Frameworks/Registration.framework' \
-
 -output './build/Registration.xcframework'
+(Repeat similar steps for Core framework.)
 
+In this approach, changes in the framework will not reflect in the main app unless updated.
 
+🌐 Publishing as a Third-Party Library/SDK
+✅ Steps
+Install CocoaPods.
 
-xcodebuild archive \
+Retrieve the Xcode project containing the framework.
 
--scheme Core \
+Create a local git repository for the framework.
 
--configuration Release \
+Create a private podspec repo.
 
--destination 'generic/platform=iOS' \
+Create and configure .podspec file.
 
--archivePath './build/Core.framework-iphoneos.xcarchive' \
+Run lint and publish commands.
 
-SKIP_INSTALL=NO \
-
-BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
-
-
-
-xcodebuild archive \
-
--scheme Core \
-
--configuration Release \
-
--destination 'generic/platform=iOS Simulator' \
-
--archivePath './build/Core.framework-iphonesimulator.xcarchive' \
-
-SKIP_INSTALL=NO \
-
-BUILD_LIBRARIES_FOR_DISTRIBUTION=YES
-
-
-
-xcodebuild -create-xcframework \
-
--framework './build/Core.framework-iphonesimulator.xcarchive/Products/Library/Frameworks/Core.framework' \
-
--framework './build/Core.framework-iphoneos.xcarchive/Products/Library/Frameworks/Core.framework' \
-
--output './build/Core.xcframework'
-
-Commands to host the framework in the repo
-
-pod spec create  Core
-
+Example .podspec for Core
+ruby
+Copy
+Edit
+Pod::Spec.new do |spec|
+  spec.name             = "CoreFramework"
+  spec.version          = "1.0.0"
+  spec.summary          = "This is Core Framework!"
+  spec.description      = "CoreFramework consists of extensions, reusable views, API and Firebase managers"
+  spec.homepage         = "https://Shalini_KP@bitbucket.org/tracmobility/core-framework"
+  spec.license          = "MIT"
+  spec.author           = { "Shalini" => "shalini@tracmobility.co.uk" }
+  spec.platform         = :ios, "13.0"
+  spec.swift_version    = "5.0"
+  spec.source           = { :git => "https://Shalini_KP@bitbucket.org/tracmobility/core-framework.git", :tag => "1.0.0" }
+  spec.source_files     = "Core", "Core/**/*"
+  spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  spec.dependency "Moya"
+  spec.dependency "Firebase/Auth"
+end
+Publish Commands
+bash
+Copy
+Edit
+pod spec create Core
 git tag 1.0.0
-
 git push --tags
-
 open Core.podspec -a Xcode
 
-Pod::Spec.new do |spec|
-
-            = "CoreFramework"
-
-  spec.version      = "1.0.0"
-
-  spec.summary      = "This is Core Framework!"
-
-  spec.description  = "CoreFramework consists of extensions, resuable views, API and firebase managers"
-
-  spec.homepage     = "https://Shalini_KP@bitbucket.org/tracmobility/core-framework"
-
-  spec.license      = "MIT"
-
-  spec.author       = { "Shalini" => "shalini@tracmobility.co.uk" }
-
-  spec.platform     = :ios
-
-  spec.swift_version = "5.0"
-
-  spec.ios.deployment_target  = '13.0'
-
-    
-
-  spec.source       = { :git => "https://Shalini_KP@bitbucket.org/tracmobility/core-framework.git", :tag => "1.0.0" }
-
-  spec.source_files  = "Core", "Core/**/*"
-
-  # spec.requires_arc = true
-
-  # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-
-  
-
-  spec.pod_target_xcconfig = {
-
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
-
-  }
-
-  spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-
-  
-
-  spec.dependency "Moya"
-
-  spec.dependency "Firebase/Auth"
-
-end
-
-pod spec lint 
-
 touch .swift-version
-
 pod spec lint Core.podspec --allow-warnings
 
-Private Spec Repo for making framework live
-
-https://guides.cocoapods.org/making/private-cocoapods.html 
-
-pod repo add Core https://Shalini_KP@bitbucket.org/tracmobility/core-framework.git (For the first time)
-
-cd ~/.cocoapods/repos/Core (For the first time)
-
+# For first-time private spec repo
+pod repo add Core https://Shalini_KP@bitbucket.org/tracmobility/core-framework.git
+cd ~/.cocoapods/repos/Core
 pod repo lint Core.podspec
 
+# Push to private repo
 cd ~/Desktop/Office_TracMobility/core-framework
-
 pod repo push Core Core.podspec --allow-warnings
-
-On other times to update 
-
+Update Later
+bash
+Copy
+Edit
 pod spec lint Core.podspec --allow-warnings
-
 pod repo lint Core.podspec
-
 pod repo push Core Core.podspec --allow-warnings
+If the framework has dependencies:
 
-If the framework has dependency then it will ask for specifications
-
+bash
+Copy
+Edit
 pod spec lint --sources='https://Shalini_KP@bitbucket.org/tracmobility/core-framework.git,https://github.com/CocoaPods/Specs'
+💡 Notes
+Local Integration: Framework changes are reflected live in the app.
 
-Note:
+Binary XCFramework: Changes in framework require a rebuild and reimport.
 
-While using custom frameworks I found these ways as per the trials I did!
-
-Locally integrating the custom frameworks where If we change something in frameworks that will reflect in the main app (when we are importing that framework.)
-
-Generating binary frameworks from custom! In this,  If we change something in frameworks that will not reflect in the main app (when we are importing that framework.)
-
-Make the frameworks as third-party or small SDK and install them from Pod!  (the framework will be pushed separately to our repository). In the future, we can reuse this for other Apps just using as third-party libraries we use!
+Third-Party SDK Style: Ideal for cross-app reuse and modular publishing.
